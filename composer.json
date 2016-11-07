@@ -1,6 +1,6 @@
 {
-  "name"       : "gmo/nexmo-client",
-  "description": "Unofficial Nexmo Rest Client",
+  "name"       : "sbtools/nexmo-client",
+  "description": "Fork from Unofficial Nexmo Rest Client",
   "keywords"   : [
     "nexmo",
     "sdk",

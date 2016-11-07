@@ -97,7 +97,10 @@ class NumberSettings
      */
     public function getMoHttpUrl()
     {
-        return $this->moHttpUrl;
+        /*
+         * Let's -try- to prevent double encoding (I believe there could be certain cases where this might not work though)
+         */
+        return urlencode(urldecode($this->moHttpUrl));
     }
 
     /**

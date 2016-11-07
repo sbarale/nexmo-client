@@ -1,11 +1,12 @@
-nexmo-client [![Build Status](https://travis-ci.org/ConnectCorp/nexmo-client.svg?branch=master)](https://travis-ci.org/ConnectCorp/nexmo-client) [![Code Climate](https://codeclimate.com/github/ConnectCorp/nexmo-client/badges/gpa.svg)](https://codeclimate.com/github/ConnectCorp/nexmo-client)
+nexmo-client 
 ============
+Form from connect-corp/nexmo-client.
 Unofficial [Nexmo](https://www.nexmo.com/) Rest Client 
 ## Documentation
 [Nexmo API Documentation](https://docs.nexmo.com/) 
 ## How to Install
 ```bash
-$ composer require connect-corp/nexmo-client
+$ composer require sbarale/nexmo-client
 ```
 
 ## Usage examples
@@ -131,4 +132,4 @@ $ composer require connect-corp/nexmo-client
 	}
 ```
 ## Contributors
-https://github.com/ConnectCorp/nexmo-client/network/members
+https://github.com/sbarale/nexmo-client/network/members

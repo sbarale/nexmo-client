@@ -58,7 +58,7 @@ class Client extends ResourceCollection
             return;
         }
         $this->client = new HttpClient([
-            'base_uri' => static::BASE_URL
+            'base_url' => static::BASE_URL
         ]);
     }
 

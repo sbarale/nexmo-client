@@ -3,29 +3,26 @@
 namespace Nexmo\Service;
 
 use Nexmo\Exception;
-use GuzzleHttp\Psr7;
 
 /**
  * Class Service
+ *
  * @package Nexmo\Service
  */
 abstract class Service extends Resource
 {
-    /**
-     * @return string
-     */
-    abstract public function getEndpoint();
-
     /**
      * @return mixed
      */
     abstract public function invoke();
 
     /**
-     * @param array $json
-     * @return bool
+     * @return array
      */
-    abstract protected function validateResponse(array $json);
+    public function __invoke()
+    {
+        return call_user_func_array([ $this, 'invoke' ], func_get_args());
+    }
 
     /**
      * @param $params
@@ -39,9 +36,16 @@ abstract class Service extends Resource
         //Add default params
         $params += $this->getDefaultQuery();
 
-        $response = $this->client->request($method, $this->getEndpoint(), [
-            'query' => $params
-        ]);
+        if ('GET' == $method) {
+            $response = $this->client->get($this->getEndpoint(), [
+                'query' => $params,
+            ]);
+        } else {
+            $response = $this->client->post($this->getEndpoint(), [
+                'query' => $params,
+            ]);
+        }
+
 
         $body = $response->getBody()->getContents();
 
@@ -67,10 +71,14 @@ abstract class Service extends Resource
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function __invoke()
-    {
-        return call_user_func_array(array($this, 'invoke'), func_get_args());
-    }
+    abstract public function getEndpoint();
+
+
+    /**
+     * @param array $json
+     * @return bool
+     */
+    abstract protected function validateResponse(array $json);
 }

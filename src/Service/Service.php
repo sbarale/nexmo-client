@@ -42,7 +42,7 @@ abstract class Service extends Resource
             ]);
         } else {
             $response = $this->client->post($this->getEndpoint(), [
-                'form_params' => $params,
+                'body' => $params,
             ]);
         }
 

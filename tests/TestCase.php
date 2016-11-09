@@ -19,30 +19,28 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected function guzzle()
     {
         $mockHandler = $this->guzzleMockHandler();
-        $handler = Guzzle\HandlerStack::create($mockHandler);
+        // $handler = Guzzle\HandlerStack::create($mockHandler);
 
-        return new Guzzle\Client(['handler' => $handler]);
+        $client = new Guzzle\Client();
+        $client->getEmitter()->on('before', function (Guzzle\Event\BeforeEvent $e) {
+            // Guzzle v5 events relied on mutation
+            $e->getRequest()->setHeader($mockHandler);
+        });
+
+
+        return $client ;
     }
 
     /**
-     * @return MockHandler
+     * @return Guzzle\Subscriber\Mock
      */
     protected function guzzleMockHandler()
     {
         if (!$this->mockHandler) {
-            $this->mockHandler = new MockHandler();
+            $this->mockHandler = new Guzzle\Subscriber\Mock();
         }
 
         return $this->mockHandler;
-    }
-
-    /**
-     * @param $string
-     */
-    protected function addResponse($string)
-    {
-        $response = new Response(200, [], $string);
-        $this->guzzleMockHandler()->append($response);
     }
 
     /**
@@ -51,5 +49,14 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected function addJsonResponse($json)
     {
         $this->addResponse(json_encode($json));
+    }
+
+    /**
+     * @param $string
+     */
+    protected function addResponse($string)
+    {
+        $response = new Response(200, [], $string);
+        $this->guzzleMockHandler()->addResponse($response);
     }
 }

@@ -17,7 +17,7 @@ class Number extends ResourceCollection
      * @return array
      * @throws Exception
      */
-    public function search($country = null, $index = 1, $size = 10, $pattern = null, $searchPattern = MatchingStrategy::STARTS_WITH, $features = 'SMS')
+    public function search($country = null, $index = 1, $size = 10, $pattern = null, $searchPattern = MatchingStrategy::STARTS_WITH, $features = 'VOICE')
     {
         return $this->search->invoke($country, $index, $size, $pattern, $searchPattern, $features);
     }
